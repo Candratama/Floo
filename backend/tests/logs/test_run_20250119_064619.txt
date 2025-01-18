@@ -1,0 +1,353 @@
+2025-01-19 06:46:19,113 - INFO - === FLOO API Test Session Started ===
+2025-01-19 06:46:19,113 - INFO - Log file created at: tests/logs/test_run_20250119_064619.log
+2025-01-19 06:46:19,113 - INFO - Test session started at: 2025-01-19 06:46:19
+2025-01-19 06:46:19,113 - INFO - 
+🚀 Starting API Endpoint Tests
+2025-01-19 06:46:19,113 - INFO - Testing API at: http://localhost:8000/api/v1
+2025-01-19 06:46:19,114 - INFO - ==================================================
+2025-01-19 06:46:19,114 - INFO - 
+=== Running Authentication Tests ===
+2025-01-19 06:46:20,286 - ERROR - Error cleaning up test users: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(psycopg2.errors.ForeignKeyViolation) update or delete on table "users" violates foreign key constraint "transactions_user_id_fkey" on table "transactions"
+DETAIL:  Key (id)=(1) is still referenced from table "transactions".
+
+[SQL: DELETE FROM users WHERE users.id = %(id)s]
+[parameters: {'id': 1}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-01-19 06:46:20,378 - INFO - 
+Testing: Register User: johndoe
+2025-01-19 06:46:20,378 - INFO - Status Code: 400
+2025-01-19 06:46:20,378 - INFO - Response: {'detail': 'Username already registered'}
+2025-01-19 06:46:20,378 - INFO - --------------------------------------------------
+2025-01-19 06:46:20,378 - INFO - User johndoe already exists
+2025-01-19 06:46:20,969 - INFO - 
+Testing: Register User: janesmith
+2025-01-19 06:46:20,969 - INFO - Status Code: 400
+2025-01-19 06:46:20,969 - INFO - Response: {'detail': 'Username already registered'}
+2025-01-19 06:46:20,969 - INFO - --------------------------------------------------
+2025-01-19 06:46:20,969 - INFO - User janesmith already exists
+2025-01-19 06:46:21,560 - INFO - 
+Testing: Register User: bobwilson
+2025-01-19 06:46:21,560 - INFO - Status Code: 400
+2025-01-19 06:46:21,560 - INFO - Response: {'detail': 'Username already registered'}
+2025-01-19 06:46:21,561 - INFO - --------------------------------------------------
+2025-01-19 06:46:21,561 - INFO - User bobwilson already exists
+2025-01-19 06:46:22,401 - INFO - 
+Testing: Login User
+2025-01-19 06:46:22,401 - INFO - Status Code: 200
+2025-01-19 06:46:22,401 - INFO - Response: {'access_token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzM3MjQ1NzgyfQ.jH1RxQQzWx2JbT3hyY095DqWdIGbdRnS0njaOT8RFE0', 'token_type': 'bearer'}
+2025-01-19 06:46:22,401 - INFO - --------------------------------------------------
+2025-01-19 06:46:22,401 - INFO - ✅ Login successful
+2025-01-19 06:46:22,401 - INFO - ✅ Authentication tests passed!
+2025-01-19 06:46:22,401 - INFO - 
+=== Running Bank Tests ===
+2025-01-19 06:46:22,650 - INFO - 
+Testing: Create Bank: BCA
+2025-01-19 06:46:22,650 - INFO - Status Code: 200
+2025-01-19 06:46:22,650 - INFO - Response: {'created_at': '2025-01-19T06:46:22.485786+00:00', 'updated_at': '2025-01-19T06:46:22.485800+00:00', 'name': 'BCA', 'color': '#0066AE', 'start_balance': 5000000, 'end_balance': 5000000, 'id': 6}
+2025-01-19 06:46:22,650 - INFO - --------------------------------------------------
+2025-01-19 06:46:22,650 - INFO - ✅ Successfully created bank: BCA
+2025-01-19 06:46:23,280 - INFO - 
+Testing: Create Bank: Mandiri
+2025-01-19 06:46:23,280 - INFO - Status Code: 400
+2025-01-19 06:46:23,280 - INFO - Response: {'detail': 'Bank with this name already exists'}
+2025-01-19 06:46:23,280 - INFO - --------------------------------------------------
+2025-01-19 06:46:23,280 - ERROR - ❌ Failed to create bank: Mandiri
+2025-01-19 06:46:23,903 - INFO - 
+Testing: Create Bank: BNI
+2025-01-19 06:46:23,903 - INFO - Status Code: 400
+2025-01-19 06:46:23,903 - INFO - Response: {'detail': 'Bank with this name already exists'}
+2025-01-19 06:46:23,904 - INFO - --------------------------------------------------
+2025-01-19 06:46:23,904 - ERROR - ❌ Failed to create bank: BNI
+2025-01-19 06:46:24,520 - INFO - 
+Testing: Create Bank: DANA
+2025-01-19 06:46:24,520 - INFO - Status Code: 400
+2025-01-19 06:46:24,520 - INFO - Response: {'detail': 'Bank with this name already exists'}
+2025-01-19 06:46:24,520 - INFO - --------------------------------------------------
+2025-01-19 06:46:24,520 - ERROR - ❌ Failed to create bank: DANA
+2025-01-19 06:46:25,139 - INFO - 
+Testing: Create Bank: GoPay
+2025-01-19 06:46:25,139 - INFO - Status Code: 400
+2025-01-19 06:46:25,139 - INFO - Response: {'detail': 'Bank with this name already exists'}
+2025-01-19 06:46:25,139 - INFO - --------------------------------------------------
+2025-01-19 06:46:25,139 - ERROR - ❌ Failed to create bank: GoPay
+2025-01-19 06:46:25,644 - INFO - ✅ Successfully created 1 banks
+2025-01-19 06:46:25,761 - INFO - 
+Testing: Get All Banks
+2025-01-19 06:46:25,761 - INFO - Status Code: 200
+2025-01-19 06:46:25,761 - INFO - Response: [{'created_at': '2025-01-19T06:39:15.378215+00:00', 'updated_at': '2025-01-19T06:39:31.544664+00:00', 'name': 'Mandiri', 'color': '#003D79', 'start_balance': 3000000, 'end_balance': 700000, 'id': 2}, {'created_at': '2025-01-19T06:39:16.842188+00:00', 'updated_at': '2025-01-19T06:39:32.324344+00:00', 'name': 'DANA', 'color': '#00AED6', 'start_balance': 500000, 'end_balance': 350000, 'id': 4}, {'created_at': '2025-01-19T06:39:17.564716+00:00', 'updated_at': '2025-01-19T06:39:33.106897+00:00', 'name': 'GoPay', 'color': '#00880C', 'start_balance': 300000, 'end_balance': 200000, 'id': 5}, {'created_at': '2025-01-19T06:39:16.112970+00:00', 'updated_at': '2025-01-19T06:39:34.687804+00:00', 'name': 'BNI', 'color': '#F15A23', 'start_balance': 2000000, 'end_balance': 1250000, 'id': 3}, {'created_at': '2025-01-19T06:39:14.645868+00:00', 'updated_at': '2025-01-19T06:39:35.939076+00:00', 'name': 'Updated Bank', 'color': '#00FF00', 'start_balance': 5000000, 'end_balance': 9425000, 'id': 1}, {'created_at': '2025-01-19T06:46:22.485786+00:00', 'updated_at': '2025-01-19T06:46:22.485800+00:00', 'name': 'BCA', 'color': '#0066AE', 'start_balance': 5000000, 'end_balance': 5000000, 'id': 6}]
+2025-01-19 06:46:25,761 - INFO - --------------------------------------------------
+2025-01-19 06:46:25,761 - INFO - Found 6 banks
+2025-01-19 06:46:25,761 - INFO - ✅ Successfully retrieved all banks
+2025-01-19 06:46:25,871 - INFO - 
+Testing: Get All Banks
+2025-01-19 06:46:25,871 - INFO - Status Code: 200
+2025-01-19 06:46:25,871 - INFO - Response: [{'created_at': '2025-01-19T06:39:15.378215+00:00', 'updated_at': '2025-01-19T06:39:31.544664+00:00', 'name': 'Mandiri', 'color': '#003D79', 'start_balance': 3000000, 'end_balance': 700000, 'id': 2}, {'created_at': '2025-01-19T06:39:16.842188+00:00', 'updated_at': '2025-01-19T06:39:32.324344+00:00', 'name': 'DANA', 'color': '#00AED6', 'start_balance': 500000, 'end_balance': 350000, 'id': 4}, {'created_at': '2025-01-19T06:39:17.564716+00:00', 'updated_at': '2025-01-19T06:39:33.106897+00:00', 'name': 'GoPay', 'color': '#00880C', 'start_balance': 300000, 'end_balance': 200000, 'id': 5}, {'created_at': '2025-01-19T06:39:16.112970+00:00', 'updated_at': '2025-01-19T06:39:34.687804+00:00', 'name': 'BNI', 'color': '#F15A23', 'start_balance': 2000000, 'end_balance': 1250000, 'id': 3}, {'created_at': '2025-01-19T06:39:14.645868+00:00', 'updated_at': '2025-01-19T06:39:35.939076+00:00', 'name': 'Updated Bank', 'color': '#00FF00', 'start_balance': 5000000, 'end_balance': 9425000, 'id': 1}, {'created_at': '2025-01-19T06:46:22.485786+00:00', 'updated_at': '2025-01-19T06:46:22.485800+00:00', 'name': 'BCA', 'color': '#0066AE', 'start_balance': 5000000, 'end_balance': 5000000, 'id': 6}]
+2025-01-19 06:46:25,871 - INFO - --------------------------------------------------
+2025-01-19 06:46:25,871 - INFO - Found 6 banks
+2025-01-19 06:46:25,990 - INFO - 
+Testing: Get Bank 2
+2025-01-19 06:46:25,990 - INFO - Status Code: 200
+2025-01-19 06:46:25,990 - INFO - Response: {'created_at': '2025-01-19T06:39:15.378215+00:00', 'updated_at': '2025-01-19T06:39:31.544664+00:00', 'name': 'Mandiri', 'color': '#003D79', 'start_balance': 3000000, 'end_balance': 700000, 'id': 2}
+2025-01-19 06:46:25,990 - INFO - --------------------------------------------------
+2025-01-19 06:46:25,991 - INFO - ✅ Successfully retrieved specific bank
+2025-01-19 06:46:26,104 - INFO - 
+Testing: Get All Banks
+2025-01-19 06:46:26,104 - INFO - Status Code: 200
+2025-01-19 06:46:26,104 - INFO - Response: [{'created_at': '2025-01-19T06:39:15.378215+00:00', 'updated_at': '2025-01-19T06:39:31.544664+00:00', 'name': 'Mandiri', 'color': '#003D79', 'start_balance': 3000000, 'end_balance': 700000, 'id': 2}, {'created_at': '2025-01-19T06:39:16.842188+00:00', 'updated_at': '2025-01-19T06:39:32.324344+00:00', 'name': 'DANA', 'color': '#00AED6', 'start_balance': 500000, 'end_balance': 350000, 'id': 4}, {'created_at': '2025-01-19T06:39:17.564716+00:00', 'updated_at': '2025-01-19T06:39:33.106897+00:00', 'name': 'GoPay', 'color': '#00880C', 'start_balance': 300000, 'end_balance': 200000, 'id': 5}, {'created_at': '2025-01-19T06:39:16.112970+00:00', 'updated_at': '2025-01-19T06:39:34.687804+00:00', 'name': 'BNI', 'color': '#F15A23', 'start_balance': 2000000, 'end_balance': 1250000, 'id': 3}, {'created_at': '2025-01-19T06:39:14.645868+00:00', 'updated_at': '2025-01-19T06:39:35.939076+00:00', 'name': 'Updated Bank', 'color': '#00FF00', 'start_balance': 5000000, 'end_balance': 9425000, 'id': 1}, {'created_at': '2025-01-19T06:46:22.485786+00:00', 'updated_at': '2025-01-19T06:46:22.485800+00:00', 'name': 'BCA', 'color': '#0066AE', 'start_balance': 5000000, 'end_balance': 5000000, 'id': 6}]
+2025-01-19 06:46:26,104 - INFO - --------------------------------------------------
+2025-01-19 06:46:26,104 - INFO - Found 6 banks
+2025-01-19 06:46:26,241 - INFO - 
+Testing: Update Bank 2
+2025-01-19 06:46:26,241 - INFO - Status Code: 400
+2025-01-19 06:46:26,241 - INFO - Response: {'detail': 'Bank with this name already exists'}
+2025-01-19 06:46:26,241 - INFO - --------------------------------------------------
+2025-01-19 06:46:26,241 - INFO - ✅ Bank tests passed!
+2025-01-19 06:46:26,241 - INFO - 
+=== Running Category Tests ===
+2025-01-19 06:46:26,241 - INFO - 
+Creating expense categories...
+2025-01-19 06:46:26,458 - INFO - 
+Testing: Create Expense Category: Internet
+2025-01-19 06:46:26,458 - INFO - Status Code: 200
+2025-01-19 06:46:26,458 - INFO - Response: {'created_at': '2025-01-19T06:46:26.326643+00:00', 'updated_at': '2025-01-19T06:46:26.326656+00:00', 'name': 'Internet', 'is_income': False, 'id': 14}
+2025-01-19 06:46:26,458 - INFO - --------------------------------------------------
+2025-01-19 06:46:26,458 - INFO - ✅ Successfully created expense category: Internet
+2025-01-19 06:46:27,087 - INFO - 
+Testing: Create Expense Category: Electricity
+2025-01-19 06:46:27,087 - INFO - Status Code: 400
+2025-01-19 06:46:27,087 - INFO - Response: {'detail': 'Category with this name already exists'}
+2025-01-19 06:46:27,087 - INFO - --------------------------------------------------
+2025-01-19 06:46:27,087 - ERROR - ❌ Failed to create expense category: Electricity
+2025-01-19 06:46:27,709 - INFO - 
+Testing: Create Expense Category: Transportation
+2025-01-19 06:46:27,709 - INFO - Status Code: 400
+2025-01-19 06:46:27,710 - INFO - Response: {'detail': 'Category with this name already exists'}
+2025-01-19 06:46:27,710 - INFO - --------------------------------------------------
+2025-01-19 06:46:27,710 - ERROR - ❌ Failed to create expense category: Transportation
+2025-01-19 06:46:28,326 - INFO - 
+Testing: Create Expense Category: Food & Beverage
+2025-01-19 06:46:28,326 - INFO - Status Code: 400
+2025-01-19 06:46:28,326 - INFO - Response: {'detail': 'Category with this name already exists'}
+2025-01-19 06:46:28,327 - INFO - --------------------------------------------------
+2025-01-19 06:46:28,327 - ERROR - ❌ Failed to create expense category: Food & Beverage
+2025-01-19 06:46:28,944 - INFO - 
+Testing: Create Expense Category: Shopping
+2025-01-19 06:46:28,944 - INFO - Status Code: 400
+2025-01-19 06:46:28,944 - INFO - Response: {'detail': 'Category with this name already exists'}
+2025-01-19 06:46:28,944 - INFO - --------------------------------------------------
+2025-01-19 06:46:28,944 - ERROR - ❌ Failed to create expense category: Shopping
+2025-01-19 06:46:29,563 - INFO - 
+Testing: Create Expense Category: Entertainment
+2025-01-19 06:46:29,563 - INFO - Status Code: 400
+2025-01-19 06:46:29,563 - INFO - Response: {'detail': 'Category with this name already exists'}
+2025-01-19 06:46:29,563 - INFO - --------------------------------------------------
+2025-01-19 06:46:29,563 - ERROR - ❌ Failed to create expense category: Entertainment
+2025-01-19 06:46:30,185 - INFO - 
+Testing: Create Expense Category: Health
+2025-01-19 06:46:30,185 - INFO - Status Code: 400
+2025-01-19 06:46:30,186 - INFO - Response: {'detail': 'Category with this name already exists'}
+2025-01-19 06:46:30,186 - INFO - --------------------------------------------------
+2025-01-19 06:46:30,186 - ERROR - ❌ Failed to create expense category: Health
+2025-01-19 06:46:30,805 - INFO - 
+Testing: Create Expense Category: Education
+2025-01-19 06:46:30,805 - INFO - Status Code: 400
+2025-01-19 06:46:30,805 - INFO - Response: {'detail': 'Category with this name already exists'}
+2025-01-19 06:46:30,805 - INFO - --------------------------------------------------
+2025-01-19 06:46:30,805 - ERROR - ❌ Failed to create expense category: Education
+2025-01-19 06:46:31,310 - INFO - 
+Creating income categories...
+2025-01-19 06:46:31,424 - INFO - 
+Testing: Create Income Category: Salary
+2025-01-19 06:46:31,424 - INFO - Status Code: 400
+2025-01-19 06:46:31,424 - INFO - Response: {'detail': 'Category with this name already exists'}
+2025-01-19 06:46:31,424 - INFO - --------------------------------------------------
+2025-01-19 06:46:31,424 - ERROR - ❌ Failed to create income category: Salary
+2025-01-19 06:46:32,090 - INFO - 
+Testing: Create Income Category: Freelance
+2025-01-19 06:46:32,090 - INFO - Status Code: 400
+2025-01-19 06:46:32,090 - INFO - Response: {'detail': 'Category with this name already exists'}
+2025-01-19 06:46:32,090 - INFO - --------------------------------------------------
+2025-01-19 06:46:32,090 - ERROR - ❌ Failed to create income category: Freelance
+2025-01-19 06:46:32,706 - INFO - 
+Testing: Create Income Category: Investment
+2025-01-19 06:46:32,706 - INFO - Status Code: 400
+2025-01-19 06:46:32,706 - INFO - Response: {'detail': 'Category with this name already exists'}
+2025-01-19 06:46:32,706 - INFO - --------------------------------------------------
+2025-01-19 06:46:32,706 - ERROR - ❌ Failed to create income category: Investment
+2025-01-19 06:46:33,334 - INFO - 
+Testing: Create Income Category: Business
+2025-01-19 06:46:33,334 - INFO - Status Code: 400
+2025-01-19 06:46:33,334 - INFO - Response: {'detail': 'Category with this name already exists'}
+2025-01-19 06:46:33,334 - INFO - --------------------------------------------------
+2025-01-19 06:46:33,334 - ERROR - ❌ Failed to create income category: Business
+2025-01-19 06:46:33,958 - INFO - 
+Testing: Create Income Category: Dividend
+2025-01-19 06:46:33,958 - INFO - Status Code: 400
+2025-01-19 06:46:33,958 - INFO - Response: {'detail': 'Category with this name already exists'}
+2025-01-19 06:46:33,958 - INFO - --------------------------------------------------
+2025-01-19 06:46:33,958 - ERROR - ❌ Failed to create income category: Dividend
+2025-01-19 06:46:34,463 - INFO - ✅ Successfully created 1 categories
+2025-01-19 06:46:34,578 - INFO - 
+Testing: Get All Categories
+2025-01-19 06:46:34,578 - INFO - Status Code: 200
+2025-01-19 06:46:34,578 - INFO - Response: [{'created_at': '2025-01-19T06:39:19.726664+00:00', 'updated_at': '2025-01-19T06:39:19.726674+00:00', 'name': 'Electricity', 'is_income': False, 'id': 2}, {'created_at': '2025-01-19T06:39:20.447856+00:00', 'updated_at': '2025-01-19T06:39:20.447867+00:00', 'name': 'Transportation', 'is_income': False, 'id': 3}, {'created_at': '2025-01-19T06:39:21.173206+00:00', 'updated_at': '2025-01-19T06:39:21.173218+00:00', 'name': 'Food & Beverage', 'is_income': False, 'id': 4}, {'created_at': '2025-01-19T06:39:21.894971+00:00', 'updated_at': '2025-01-19T06:39:21.894986+00:00', 'name': 'Shopping', 'is_income': False, 'id': 5}, {'created_at': '2025-01-19T06:39:22.623481+00:00', 'updated_at': '2025-01-19T06:39:22.623502+00:00', 'name': 'Entertainment', 'is_income': False, 'id': 6}, {'created_at': '2025-01-19T06:39:23.352604+00:00', 'updated_at': '2025-01-19T06:39:23.352635+00:00', 'name': 'Health', 'is_income': False, 'id': 7}, {'created_at': '2025-01-19T06:39:24.084776+00:00', 'updated_at': '2025-01-19T06:39:24.084822+00:00', 'name': 'Education', 'is_income': False, 'id': 8}, {'created_at': '2025-01-19T06:39:24.819071+00:00', 'updated_at': '2025-01-19T06:39:24.819086+00:00', 'name': 'Salary', 'is_income': True, 'id': 9}, {'created_at': '2025-01-19T06:39:25.549930+00:00', 'updated_at': '2025-01-19T06:39:25.549943+00:00', 'name': 'Freelance', 'is_income': True, 'id': 10}, {'created_at': '2025-01-19T06:39:26.281579+00:00', 'updated_at': '2025-01-19T06:39:26.281585+00:00', 'name': 'Investment', 'is_income': True, 'id': 11}, {'created_at': '2025-01-19T06:39:27.007363+00:00', 'updated_at': '2025-01-19T06:39:27.007370+00:00', 'name': 'Business', 'is_income': True, 'id': 12}, {'created_at': '2025-01-19T06:39:27.727907+00:00', 'updated_at': '2025-01-19T06:39:27.727915+00:00', 'name': 'Dividend', 'is_income': True, 'id': 13}, {'created_at': '2025-01-19T06:39:19.004444+00:00', 'updated_at': '2025-01-19T06:39:28.703516+00:00', 'name': 'Updated Category', 'is_income': True, 'id': 1}, {'created_at': '2025-01-19T06:46:26.326643+00:00', 'updated_at': '2025-01-19T06:46:26.326656+00:00', 'name': 'Internet', 'is_income': False, 'id': 14}]
+2025-01-19 06:46:34,578 - INFO - --------------------------------------------------
+2025-01-19 06:46:34,578 - INFO - Found 14 categories
+2025-01-19 06:46:34,578 - INFO - 
+Found 6 income categories
+2025-01-19 06:46:34,578 - INFO - Found 8 expense categories
+2025-01-19 06:46:34,579 - INFO - ✅ Successfully verified categories by type
+2025-01-19 06:46:34,691 - INFO - 
+Testing: Get All Categories
+2025-01-19 06:46:34,691 - INFO - Status Code: 200
+2025-01-19 06:46:34,691 - INFO - Response: [{'created_at': '2025-01-19T06:39:19.726664+00:00', 'updated_at': '2025-01-19T06:39:19.726674+00:00', 'name': 'Electricity', 'is_income': False, 'id': 2}, {'created_at': '2025-01-19T06:39:20.447856+00:00', 'updated_at': '2025-01-19T06:39:20.447867+00:00', 'name': 'Transportation', 'is_income': False, 'id': 3}, {'created_at': '2025-01-19T06:39:21.173206+00:00', 'updated_at': '2025-01-19T06:39:21.173218+00:00', 'name': 'Food & Beverage', 'is_income': False, 'id': 4}, {'created_at': '2025-01-19T06:39:21.894971+00:00', 'updated_at': '2025-01-19T06:39:21.894986+00:00', 'name': 'Shopping', 'is_income': False, 'id': 5}, {'created_at': '2025-01-19T06:39:22.623481+00:00', 'updated_at': '2025-01-19T06:39:22.623502+00:00', 'name': 'Entertainment', 'is_income': False, 'id': 6}, {'created_at': '2025-01-19T06:39:23.352604+00:00', 'updated_at': '2025-01-19T06:39:23.352635+00:00', 'name': 'Health', 'is_income': False, 'id': 7}, {'created_at': '2025-01-19T06:39:24.084776+00:00', 'updated_at': '2025-01-19T06:39:24.084822+00:00', 'name': 'Education', 'is_income': False, 'id': 8}, {'created_at': '2025-01-19T06:39:24.819071+00:00', 'updated_at': '2025-01-19T06:39:24.819086+00:00', 'name': 'Salary', 'is_income': True, 'id': 9}, {'created_at': '2025-01-19T06:39:25.549930+00:00', 'updated_at': '2025-01-19T06:39:25.549943+00:00', 'name': 'Freelance', 'is_income': True, 'id': 10}, {'created_at': '2025-01-19T06:39:26.281579+00:00', 'updated_at': '2025-01-19T06:39:26.281585+00:00', 'name': 'Investment', 'is_income': True, 'id': 11}, {'created_at': '2025-01-19T06:39:27.007363+00:00', 'updated_at': '2025-01-19T06:39:27.007370+00:00', 'name': 'Business', 'is_income': True, 'id': 12}, {'created_at': '2025-01-19T06:39:27.727907+00:00', 'updated_at': '2025-01-19T06:39:27.727915+00:00', 'name': 'Dividend', 'is_income': True, 'id': 13}, {'created_at': '2025-01-19T06:39:19.004444+00:00', 'updated_at': '2025-01-19T06:39:28.703516+00:00', 'name': 'Updated Category', 'is_income': True, 'id': 1}, {'created_at': '2025-01-19T06:46:26.326643+00:00', 'updated_at': '2025-01-19T06:46:26.326656+00:00', 'name': 'Internet', 'is_income': False, 'id': 14}]
+2025-01-19 06:46:34,691 - INFO - --------------------------------------------------
+2025-01-19 06:46:34,691 - INFO - Found 14 categories
+2025-01-19 06:46:34,828 - INFO - 
+Testing: Update Category 2
+2025-01-19 06:46:34,828 - INFO - Status Code: 400
+2025-01-19 06:46:34,828 - INFO - Response: {'detail': 'Category with this name already exists'}
+2025-01-19 06:46:34,828 - INFO - --------------------------------------------------
+2025-01-19 06:46:34,828 - INFO - ✅ Category tests passed!
+2025-01-19 06:46:34,828 - INFO - 
+=== Running Transaction Tests ===
+2025-01-19 06:46:34,942 - INFO - 
+Testing: Get All Categories
+2025-01-19 06:46:34,943 - INFO - Status Code: 200
+2025-01-19 06:46:34,943 - INFO - Response: [{'created_at': '2025-01-19T06:39:19.726664+00:00', 'updated_at': '2025-01-19T06:39:19.726674+00:00', 'name': 'Electricity', 'is_income': False, 'id': 2}, {'created_at': '2025-01-19T06:39:20.447856+00:00', 'updated_at': '2025-01-19T06:39:20.447867+00:00', 'name': 'Transportation', 'is_income': False, 'id': 3}, {'created_at': '2025-01-19T06:39:21.173206+00:00', 'updated_at': '2025-01-19T06:39:21.173218+00:00', 'name': 'Food & Beverage', 'is_income': False, 'id': 4}, {'created_at': '2025-01-19T06:39:21.894971+00:00', 'updated_at': '2025-01-19T06:39:21.894986+00:00', 'name': 'Shopping', 'is_income': False, 'id': 5}, {'created_at': '2025-01-19T06:39:22.623481+00:00', 'updated_at': '2025-01-19T06:39:22.623502+00:00', 'name': 'Entertainment', 'is_income': False, 'id': 6}, {'created_at': '2025-01-19T06:39:23.352604+00:00', 'updated_at': '2025-01-19T06:39:23.352635+00:00', 'name': 'Health', 'is_income': False, 'id': 7}, {'created_at': '2025-01-19T06:39:24.084776+00:00', 'updated_at': '2025-01-19T06:39:24.084822+00:00', 'name': 'Education', 'is_income': False, 'id': 8}, {'created_at': '2025-01-19T06:39:24.819071+00:00', 'updated_at': '2025-01-19T06:39:24.819086+00:00', 'name': 'Salary', 'is_income': True, 'id': 9}, {'created_at': '2025-01-19T06:39:25.549930+00:00', 'updated_at': '2025-01-19T06:39:25.549943+00:00', 'name': 'Freelance', 'is_income': True, 'id': 10}, {'created_at': '2025-01-19T06:39:26.281579+00:00', 'updated_at': '2025-01-19T06:39:26.281585+00:00', 'name': 'Investment', 'is_income': True, 'id': 11}, {'created_at': '2025-01-19T06:39:27.007363+00:00', 'updated_at': '2025-01-19T06:39:27.007370+00:00', 'name': 'Business', 'is_income': True, 'id': 12}, {'created_at': '2025-01-19T06:39:27.727907+00:00', 'updated_at': '2025-01-19T06:39:27.727915+00:00', 'name': 'Dividend', 'is_income': True, 'id': 13}, {'created_at': '2025-01-19T06:39:19.004444+00:00', 'updated_at': '2025-01-19T06:39:28.703516+00:00', 'name': 'Updated Category', 'is_income': True, 'id': 1}, {'created_at': '2025-01-19T06:46:26.326643+00:00', 'updated_at': '2025-01-19T06:46:26.326656+00:00', 'name': 'Internet', 'is_income': False, 'id': 14}]
+2025-01-19 06:46:34,943 - INFO - --------------------------------------------------
+2025-01-19 06:46:34,943 - INFO - Found 14 categories
+2025-01-19 06:46:35,058 - INFO - 
+Testing: Get All Banks
+2025-01-19 06:46:35,058 - INFO - Status Code: 200
+2025-01-19 06:46:35,058 - INFO - Response: [{'created_at': '2025-01-19T06:39:15.378215+00:00', 'updated_at': '2025-01-19T06:39:31.544664+00:00', 'name': 'Mandiri', 'color': '#003D79', 'start_balance': 3000000, 'end_balance': 700000, 'id': 2}, {'created_at': '2025-01-19T06:39:16.842188+00:00', 'updated_at': '2025-01-19T06:39:32.324344+00:00', 'name': 'DANA', 'color': '#00AED6', 'start_balance': 500000, 'end_balance': 350000, 'id': 4}, {'created_at': '2025-01-19T06:39:17.564716+00:00', 'updated_at': '2025-01-19T06:39:33.106897+00:00', 'name': 'GoPay', 'color': '#00880C', 'start_balance': 300000, 'end_balance': 200000, 'id': 5}, {'created_at': '2025-01-19T06:39:16.112970+00:00', 'updated_at': '2025-01-19T06:39:34.687804+00:00', 'name': 'BNI', 'color': '#F15A23', 'start_balance': 2000000, 'end_balance': 1250000, 'id': 3}, {'created_at': '2025-01-19T06:39:14.645868+00:00', 'updated_at': '2025-01-19T06:39:35.939076+00:00', 'name': 'Updated Bank', 'color': '#00FF00', 'start_balance': 5000000, 'end_balance': 9425000, 'id': 1}, {'created_at': '2025-01-19T06:46:22.485786+00:00', 'updated_at': '2025-01-19T06:46:22.485800+00:00', 'name': 'BCA', 'color': '#0066AE', 'start_balance': 5000000, 'end_balance': 5000000, 'id': 6}]
+2025-01-19 06:46:35,058 - INFO - --------------------------------------------------
+2025-01-19 06:46:35,058 - INFO - Found 6 banks
+2025-01-19 06:46:35,058 - INFO - 
+Creating transactions...
+2025-01-19 06:46:35,331 - INFO - 
+Testing: Create Transaction: Monthly Salary
+2025-01-19 06:46:35,331 - INFO - Status Code: 200
+2025-01-19 06:46:35,331 - INFO - Response: {'created_at': '2025-01-19T06:46:35.167328+00:00', 'updated_at': '2025-01-19T06:46:35.167343+00:00', 'date': '2024-01-18', 'amount': 5000000, 'description': 'Monthly Salary', 'category_id': 1, 'bank_id': 1, 'id': 9, 'user_id': 1}
+2025-01-19 06:46:35,332 - INFO - --------------------------------------------------
+2025-01-19 06:46:35,332 - INFO - ✅ Successfully created transaction: Monthly Salary
+2025-01-19 06:46:36,116 - INFO - 
+Testing: Create Transaction: Freelance Project
+2025-01-19 06:46:36,116 - INFO - Status Code: 200
+2025-01-19 06:46:36,116 - INFO - Response: {'created_at': '2025-01-19T06:46:35.953636+00:00', 'updated_at': '2025-01-19T06:46:35.953669+00:00', 'date': '2024-01-18', 'amount': 2000000, 'description': 'Freelance Project', 'category_id': 2, 'bank_id': 2, 'id': 10, 'user_id': 1}
+2025-01-19 06:46:36,116 - INFO - --------------------------------------------------
+2025-01-19 06:46:36,116 - INFO - ✅ Successfully created transaction: Freelance Project
+2025-01-19 06:46:36,905 - INFO - 
+Testing: Create Transaction: Internet Bill
+2025-01-19 06:46:36,905 - INFO - Status Code: 200
+2025-01-19 06:46:36,905 - INFO - Response: {'created_at': '2025-01-19T06:46:36.743193+00:00', 'updated_at': '2025-01-19T06:46:36.743201+00:00', 'date': '2024-01-19', 'amount': 500000, 'description': 'Internet Bill', 'category_id': 3, 'bank_id': 1, 'id': 11, 'user_id': 1}
+2025-01-19 06:46:36,905 - INFO - --------------------------------------------------
+2025-01-19 06:46:36,905 - INFO - ✅ Successfully created transaction: Internet Bill
+2025-01-19 06:46:37,686 - INFO - 
+Testing: Create Transaction: Electricity Bill
+2025-01-19 06:46:37,687 - INFO - Status Code: 200
+2025-01-19 06:46:37,687 - INFO - Response: {'created_at': '2025-01-19T06:46:37.523777+00:00', 'updated_at': '2025-01-19T06:46:37.523787+00:00', 'date': '2024-01-19', 'amount': 300000, 'description': 'Electricity Bill', 'category_id': 4, 'bank_id': 2, 'id': 12, 'user_id': 1}
+2025-01-19 06:46:37,687 - INFO - --------------------------------------------------
+2025-01-19 06:46:37,687 - INFO - ✅ Successfully created transaction: Electricity Bill
+2025-01-19 06:46:38,468 - INFO - 
+Testing: Create Transaction: Lunch with colleagues
+2025-01-19 06:46:38,468 - INFO - Status Code: 200
+2025-01-19 06:46:38,468 - INFO - Response: {'created_at': '2025-01-19T06:46:38.304836+00:00', 'updated_at': '2025-01-19T06:46:38.304853+00:00', 'date': '2024-01-20', 'amount': 150000, 'description': 'Lunch with colleagues', 'category_id': 5, 'bank_id': 4, 'id': 13, 'user_id': 1}
+2025-01-19 06:46:38,468 - INFO - --------------------------------------------------
+2025-01-19 06:46:38,468 - INFO - ✅ Successfully created transaction: Lunch with colleagues
+2025-01-19 06:46:39,255 - INFO - 
+Testing: Create Transaction: Transportation
+2025-01-19 06:46:39,255 - INFO - Status Code: 200
+2025-01-19 06:46:39,255 - INFO - Response: {'created_at': '2025-01-19T06:46:39.092900+00:00', 'updated_at': '2025-01-19T06:46:39.092947+00:00', 'date': '2024-01-20', 'amount': 100000, 'description': 'Transportation', 'category_id': 6, 'bank_id': 5, 'id': 14, 'user_id': 1}
+2025-01-19 06:46:39,255 - INFO - --------------------------------------------------
+2025-01-19 06:46:39,255 - INFO - ✅ Successfully created transaction: Transportation
+2025-01-19 06:46:40,041 - INFO - 
+Testing: Create Transaction: Investment Return
+2025-01-19 06:46:40,041 - INFO - Status Code: 200
+2025-01-19 06:46:40,041 - INFO - Response: {'created_at': '2025-01-19T06:46:39.880026+00:00', 'updated_at': '2025-01-19T06:46:39.880033+00:00', 'date': '2024-01-21', 'amount': 1000000, 'description': 'Investment Return', 'category_id': 7, 'bank_id': 1, 'id': 15, 'user_id': 1}
+2025-01-19 06:46:40,041 - INFO - --------------------------------------------------
+2025-01-19 06:46:40,041 - INFO - ✅ Successfully created transaction: Investment Return
+2025-01-19 06:46:40,823 - INFO - 
+Testing: Create Transaction: Shopping at Mall
+2025-01-19 06:46:40,823 - INFO - Status Code: 200
+2025-01-19 06:46:40,823 - INFO - Response: {'created_at': '2025-01-19T06:46:40.658650+00:00', 'updated_at': '2025-01-19T06:46:40.658660+00:00', 'date': '2024-01-21', 'amount': 750000, 'description': 'Shopping at Mall', 'category_id': 8, 'bank_id': 3, 'id': 16, 'user_id': 1}
+2025-01-19 06:46:40,824 - INFO - --------------------------------------------------
+2025-01-19 06:46:40,824 - INFO - ✅ Successfully created transaction: Shopping at Mall
+2025-01-19 06:46:41,328 - INFO - ✅ Successfully created 8 transactions
+2025-01-19 06:46:41,441 - INFO - 
+Testing: Get All Transactions
+2025-01-19 06:46:41,441 - INFO - Status Code: 200
+2025-01-19 06:46:41,442 - INFO - Response: [{'created_at': '2025-01-19T06:46:39.880026+00:00', 'updated_at': '2025-01-19T06:46:39.880033+00:00', 'date': '2024-01-21', 'amount': 1000000, 'description': 'Investment Return', 'category_id': 7, 'bank_id': 1, 'id': 15, 'user_id': 1}, {'created_at': '2025-01-19T06:46:40.658650+00:00', 'updated_at': '2025-01-19T06:46:40.658660+00:00', 'date': '2024-01-21', 'amount': 750000, 'description': 'Shopping at Mall', 'category_id': 8, 'bank_id': 3, 'id': 16, 'user_id': 1}, {'created_at': '2025-01-19T06:39:34.687735+00:00', 'updated_at': '2025-01-19T06:39:34.687743+00:00', 'date': '2024-01-21', 'amount': 750000, 'description': 'Shopping at Mall', 'category_id': 8, 'bank_id': 3, 'id': 8, 'user_id': 1}, {'created_at': '2025-01-19T06:39:33.905037+00:00', 'updated_at': '2025-01-19T06:39:35.939297+00:00', 'date': '2024-01-21', 'amount': 75000, 'description': 'Updated Transaction Description', 'category_id': 7, 'bank_id': 1, 'id': 7, 'user_id': 1}, {'created_at': '2025-01-19T06:46:38.304836+00:00', 'updated_at': '2025-01-19T06:46:38.304853+00:00', 'date': '2024-01-20', 'amount': 150000, 'description': 'Lunch with colleagues', 'category_id': 5, 'bank_id': 4, 'id': 13, 'user_id': 1}, {'created_at': '2025-01-19T06:46:39.092900+00:00', 'updated_at': '2025-01-19T06:46:39.092947+00:00', 'date': '2024-01-20', 'amount': 100000, 'description': 'Transportation', 'category_id': 6, 'bank_id': 5, 'id': 14, 'user_id': 1}, {'created_at': '2025-01-19T06:39:32.324277+00:00', 'updated_at': '2025-01-19T06:39:32.324286+00:00', 'date': '2024-01-20', 'amount': 150000, 'description': 'Lunch with colleagues', 'category_id': 5, 'bank_id': 4, 'id': 5, 'user_id': 1}, {'created_at': '2025-01-19T06:39:33.106742+00:00', 'updated_at': '2025-01-19T06:39:33.106761+00:00', 'date': '2024-01-20', 'amount': 100000, 'description': 'Transportation', 'category_id': 6, 'bank_id': 5, 'id': 6, 'user_id': 1}, {'created_at': '2025-01-19T06:39:30.755577+00:00', 'updated_at': '2025-01-19T06:39:30.755592+00:00', 'date': '2024-01-19', 'amount': 500000, 'description': 'Internet Bill', 'category_id': 3, 'bank_id': 1, 'id': 3, 'user_id': 1}, {'created_at': '2025-01-19T06:39:31.544599+00:00', 'updated_at': '2025-01-19T06:39:31.544606+00:00', 'date': '2024-01-19', 'amount': 300000, 'description': 'Electricity Bill', 'category_id': 4, 'bank_id': 2, 'id': 4, 'user_id': 1}, {'created_at': '2025-01-19T06:46:36.743193+00:00', 'updated_at': '2025-01-19T06:46:36.743201+00:00', 'date': '2024-01-19', 'amount': 500000, 'description': 'Internet Bill', 'category_id': 3, 'bank_id': 1, 'id': 11, 'user_id': 1}, {'created_at': '2025-01-19T06:46:37.523777+00:00', 'updated_at': '2025-01-19T06:46:37.523787+00:00', 'date': '2024-01-19', 'amount': 300000, 'description': 'Electricity Bill', 'category_id': 4, 'bank_id': 2, 'id': 12, 'user_id': 1}, {'created_at': '2025-01-19T06:46:35.167328+00:00', 'updated_at': '2025-01-19T06:46:35.167343+00:00', 'date': '2024-01-18', 'amount': 5000000, 'description': 'Monthly Salary', 'category_id': 1, 'bank_id': 1, 'id': 9, 'user_id': 1}, {'created_at': '2025-01-19T06:39:29.963512+00:00', 'updated_at': '2025-01-19T06:39:29.963536+00:00', 'date': '2024-01-18', 'amount': 2000000, 'description': 'Freelance Project', 'category_id': 2, 'bank_id': 2, 'id': 2, 'user_id': 1}, {'created_at': '2025-01-19T06:39:29.176306+00:00', 'updated_at': '2025-01-19T06:39:29.176317+00:00', 'date': '2024-01-18', 'amount': 5000000, 'description': 'Monthly Salary', 'category_id': 1, 'bank_id': 1, 'id': 1, 'user_id': 1}, {'created_at': '2025-01-19T06:46:35.953636+00:00', 'updated_at': '2025-01-19T06:46:35.953669+00:00', 'date': '2024-01-18', 'amount': 2000000, 'description': 'Freelance Project', 'category_id': 2, 'bank_id': 2, 'id': 10, 'user_id': 1}]
+2025-01-19 06:46:41,442 - INFO - --------------------------------------------------
+2025-01-19 06:46:41,442 - INFO - Found 16 transactions
+2025-01-19 06:46:41,442 - INFO - ✅ Successfully retrieved all transactions
+2025-01-19 06:46:41,557 - INFO - 
+Testing: Get All Transactions
+2025-01-19 06:46:41,557 - INFO - Status Code: 200
+2025-01-19 06:46:41,558 - INFO - Response: [{'created_at': '2025-01-19T06:46:39.880026+00:00', 'updated_at': '2025-01-19T06:46:39.880033+00:00', 'date': '2024-01-21', 'amount': 1000000, 'description': 'Investment Return', 'category_id': 7, 'bank_id': 1, 'id': 15, 'user_id': 1}, {'created_at': '2025-01-19T06:46:40.658650+00:00', 'updated_at': '2025-01-19T06:46:40.658660+00:00', 'date': '2024-01-21', 'amount': 750000, 'description': 'Shopping at Mall', 'category_id': 8, 'bank_id': 3, 'id': 16, 'user_id': 1}, {'created_at': '2025-01-19T06:39:34.687735+00:00', 'updated_at': '2025-01-19T06:39:34.687743+00:00', 'date': '2024-01-21', 'amount': 750000, 'description': 'Shopping at Mall', 'category_id': 8, 'bank_id': 3, 'id': 8, 'user_id': 1}, {'created_at': '2025-01-19T06:39:33.905037+00:00', 'updated_at': '2025-01-19T06:39:35.939297+00:00', 'date': '2024-01-21', 'amount': 75000, 'description': 'Updated Transaction Description', 'category_id': 7, 'bank_id': 1, 'id': 7, 'user_id': 1}, {'created_at': '2025-01-19T06:46:38.304836+00:00', 'updated_at': '2025-01-19T06:46:38.304853+00:00', 'date': '2024-01-20', 'amount': 150000, 'description': 'Lunch with colleagues', 'category_id': 5, 'bank_id': 4, 'id': 13, 'user_id': 1}, {'created_at': '2025-01-19T06:46:39.092900+00:00', 'updated_at': '2025-01-19T06:46:39.092947+00:00', 'date': '2024-01-20', 'amount': 100000, 'description': 'Transportation', 'category_id': 6, 'bank_id': 5, 'id': 14, 'user_id': 1}, {'created_at': '2025-01-19T06:39:32.324277+00:00', 'updated_at': '2025-01-19T06:39:32.324286+00:00', 'date': '2024-01-20', 'amount': 150000, 'description': 'Lunch with colleagues', 'category_id': 5, 'bank_id': 4, 'id': 5, 'user_id': 1}, {'created_at': '2025-01-19T06:39:33.106742+00:00', 'updated_at': '2025-01-19T06:39:33.106761+00:00', 'date': '2024-01-20', 'amount': 100000, 'description': 'Transportation', 'category_id': 6, 'bank_id': 5, 'id': 6, 'user_id': 1}, {'created_at': '2025-01-19T06:39:30.755577+00:00', 'updated_at': '2025-01-19T06:39:30.755592+00:00', 'date': '2024-01-19', 'amount': 500000, 'description': 'Internet Bill', 'category_id': 3, 'bank_id': 1, 'id': 3, 'user_id': 1}, {'created_at': '2025-01-19T06:39:31.544599+00:00', 'updated_at': '2025-01-19T06:39:31.544606+00:00', 'date': '2024-01-19', 'amount': 300000, 'description': 'Electricity Bill', 'category_id': 4, 'bank_id': 2, 'id': 4, 'user_id': 1}, {'created_at': '2025-01-19T06:46:36.743193+00:00', 'updated_at': '2025-01-19T06:46:36.743201+00:00', 'date': '2024-01-19', 'amount': 500000, 'description': 'Internet Bill', 'category_id': 3, 'bank_id': 1, 'id': 11, 'user_id': 1}, {'created_at': '2025-01-19T06:46:37.523777+00:00', 'updated_at': '2025-01-19T06:46:37.523787+00:00', 'date': '2024-01-19', 'amount': 300000, 'description': 'Electricity Bill', 'category_id': 4, 'bank_id': 2, 'id': 12, 'user_id': 1}, {'created_at': '2025-01-19T06:46:35.167328+00:00', 'updated_at': '2025-01-19T06:46:35.167343+00:00', 'date': '2024-01-18', 'amount': 5000000, 'description': 'Monthly Salary', 'category_id': 1, 'bank_id': 1, 'id': 9, 'user_id': 1}, {'created_at': '2025-01-19T06:39:29.963512+00:00', 'updated_at': '2025-01-19T06:39:29.963536+00:00', 'date': '2024-01-18', 'amount': 2000000, 'description': 'Freelance Project', 'category_id': 2, 'bank_id': 2, 'id': 2, 'user_id': 1}, {'created_at': '2025-01-19T06:39:29.176306+00:00', 'updated_at': '2025-01-19T06:39:29.176317+00:00', 'date': '2024-01-18', 'amount': 5000000, 'description': 'Monthly Salary', 'category_id': 1, 'bank_id': 1, 'id': 1, 'user_id': 1}, {'created_at': '2025-01-19T06:46:35.953636+00:00', 'updated_at': '2025-01-19T06:46:35.953669+00:00', 'date': '2024-01-18', 'amount': 2000000, 'description': 'Freelance Project', 'category_id': 2, 'bank_id': 2, 'id': 10, 'user_id': 1}]
+2025-01-19 06:46:41,558 - INFO - --------------------------------------------------
+2025-01-19 06:46:41,558 - INFO - Found 16 transactions
+2025-01-19 06:46:41,667 - INFO - 
+Testing: Get Transaction 15
+2025-01-19 06:46:41,667 - INFO - Status Code: 200
+2025-01-19 06:46:41,668 - INFO - Response: {'created_at': '2025-01-19T06:46:39.880026+00:00', 'updated_at': '2025-01-19T06:46:39.880033+00:00', 'date': '2024-01-21', 'amount': 1000000, 'description': 'Investment Return', 'category_id': 7, 'bank_id': 1, 'id': 15, 'user_id': 1}
+2025-01-19 06:46:41,668 - INFO - --------------------------------------------------
+2025-01-19 06:46:41,668 - INFO - ✅ Successfully retrieved specific transaction
+2025-01-19 06:46:41,779 - INFO - 
+Testing: Get All Transactions
+2025-01-19 06:46:41,779 - INFO - Status Code: 200
+2025-01-19 06:46:41,779 - INFO - Response: [{'created_at': '2025-01-19T06:46:39.880026+00:00', 'updated_at': '2025-01-19T06:46:39.880033+00:00', 'date': '2024-01-21', 'amount': 1000000, 'description': 'Investment Return', 'category_id': 7, 'bank_id': 1, 'id': 15, 'user_id': 1}, {'created_at': '2025-01-19T06:46:40.658650+00:00', 'updated_at': '2025-01-19T06:46:40.658660+00:00', 'date': '2024-01-21', 'amount': 750000, 'description': 'Shopping at Mall', 'category_id': 8, 'bank_id': 3, 'id': 16, 'user_id': 1}, {'created_at': '2025-01-19T06:39:34.687735+00:00', 'updated_at': '2025-01-19T06:39:34.687743+00:00', 'date': '2024-01-21', 'amount': 750000, 'description': 'Shopping at Mall', 'category_id': 8, 'bank_id': 3, 'id': 8, 'user_id': 1}, {'created_at': '2025-01-19T06:39:33.905037+00:00', 'updated_at': '2025-01-19T06:39:35.939297+00:00', 'date': '2024-01-21', 'amount': 75000, 'description': 'Updated Transaction Description', 'category_id': 7, 'bank_id': 1, 'id': 7, 'user_id': 1}, {'created_at': '2025-01-19T06:46:38.304836+00:00', 'updated_at': '2025-01-19T06:46:38.304853+00:00', 'date': '2024-01-20', 'amount': 150000, 'description': 'Lunch with colleagues', 'category_id': 5, 'bank_id': 4, 'id': 13, 'user_id': 1}, {'created_at': '2025-01-19T06:46:39.092900+00:00', 'updated_at': '2025-01-19T06:46:39.092947+00:00', 'date': '2024-01-20', 'amount': 100000, 'description': 'Transportation', 'category_id': 6, 'bank_id': 5, 'id': 14, 'user_id': 1}, {'created_at': '2025-01-19T06:39:32.324277+00:00', 'updated_at': '2025-01-19T06:39:32.324286+00:00', 'date': '2024-01-20', 'amount': 150000, 'description': 'Lunch with colleagues', 'category_id': 5, 'bank_id': 4, 'id': 5, 'user_id': 1}, {'created_at': '2025-01-19T06:39:33.106742+00:00', 'updated_at': '2025-01-19T06:39:33.106761+00:00', 'date': '2024-01-20', 'amount': 100000, 'description': 'Transportation', 'category_id': 6, 'bank_id': 5, 'id': 6, 'user_id': 1}, {'created_at': '2025-01-19T06:39:30.755577+00:00', 'updated_at': '2025-01-19T06:39:30.755592+00:00', 'date': '2024-01-19', 'amount': 500000, 'description': 'Internet Bill', 'category_id': 3, 'bank_id': 1, 'id': 3, 'user_id': 1}, {'created_at': '2025-01-19T06:39:31.544599+00:00', 'updated_at': '2025-01-19T06:39:31.544606+00:00', 'date': '2024-01-19', 'amount': 300000, 'description': 'Electricity Bill', 'category_id': 4, 'bank_id': 2, 'id': 4, 'user_id': 1}, {'created_at': '2025-01-19T06:46:36.743193+00:00', 'updated_at': '2025-01-19T06:46:36.743201+00:00', 'date': '2024-01-19', 'amount': 500000, 'description': 'Internet Bill', 'category_id': 3, 'bank_id': 1, 'id': 11, 'user_id': 1}, {'created_at': '2025-01-19T06:46:37.523777+00:00', 'updated_at': '2025-01-19T06:46:37.523787+00:00', 'date': '2024-01-19', 'amount': 300000, 'description': 'Electricity Bill', 'category_id': 4, 'bank_id': 2, 'id': 12, 'user_id': 1}, {'created_at': '2025-01-19T06:46:35.167328+00:00', 'updated_at': '2025-01-19T06:46:35.167343+00:00', 'date': '2024-01-18', 'amount': 5000000, 'description': 'Monthly Salary', 'category_id': 1, 'bank_id': 1, 'id': 9, 'user_id': 1}, {'created_at': '2025-01-19T06:39:29.963512+00:00', 'updated_at': '2025-01-19T06:39:29.963536+00:00', 'date': '2024-01-18', 'amount': 2000000, 'description': 'Freelance Project', 'category_id': 2, 'bank_id': 2, 'id': 2, 'user_id': 1}, {'created_at': '2025-01-19T06:39:29.176306+00:00', 'updated_at': '2025-01-19T06:39:29.176317+00:00', 'date': '2024-01-18', 'amount': 5000000, 'description': 'Monthly Salary', 'category_id': 1, 'bank_id': 1, 'id': 1, 'user_id': 1}, {'created_at': '2025-01-19T06:46:35.953636+00:00', 'updated_at': '2025-01-19T06:46:35.953669+00:00', 'date': '2024-01-18', 'amount': 2000000, 'description': 'Freelance Project', 'category_id': 2, 'bank_id': 2, 'id': 10, 'user_id': 1}]
+2025-01-19 06:46:41,779 - INFO - --------------------------------------------------
+2025-01-19 06:46:41,780 - INFO - Found 16 transactions
+2025-01-19 06:46:42,080 - INFO - 
+Testing: Update Transaction 15
+2025-01-19 06:46:42,080 - INFO - Status Code: 200
+2025-01-19 06:46:42,080 - INFO - Response: {'created_at': '2025-01-19T06:46:39.880026+00:00', 'updated_at': '2025-01-19T06:46:41.919552+00:00', 'date': '2024-01-21', 'amount': 75000, 'description': 'Updated Transaction Description', 'category_id': 7, 'bank_id': 1, 'id': 15, 'user_id': 1}
+2025-01-19 06:46:42,080 - INFO - --------------------------------------------------
+2025-01-19 06:46:42,081 - INFO - ✅ Successfully updated transaction
+2025-01-19 06:46:42,205 - INFO - 
+Testing: Filter Transactions with params: {'start_date': '2024-01-01'}
+2025-01-19 06:46:42,205 - INFO - Status Code: 200
+2025-01-19 06:46:42,205 - INFO - Response: [{'created_at': '2025-01-19T06:46:40.658650+00:00', 'updated_at': '2025-01-19T06:46:40.658660+00:00', 'date': '2024-01-21', 'amount': 750000, 'description': 'Shopping at Mall', 'category_id': 8, 'bank_id': 3, 'id': 16, 'user_id': 1}, {'created_at': '2025-01-19T06:46:39.880026+00:00', 'updated_at': '2025-01-19T06:46:41.919552+00:00', 'date': '2024-01-21', 'amount': 75000, 'description': 'Updated Transaction Description', 'category_id': 7, 'bank_id': 1, 'id': 15, 'user_id': 1}, {'created_at': '2025-01-19T06:39:34.687735+00:00', 'updated_at': '2025-01-19T06:39:34.687743+00:00', 'date': '2024-01-21', 'amount': 750000, 'description': 'Shopping at Mall', 'category_id': 8, 'bank_id': 3, 'id': 8, 'user_id': 1}, {'created_at': '2025-01-19T06:39:33.905037+00:00', 'updated_at': '2025-01-19T06:39:35.939297+00:00', 'date': '2024-01-21', 'amount': 75000, 'description': 'Updated Transaction Description', 'category_id': 7, 'bank_id': 1, 'id': 7, 'user_id': 1}, {'created_at': '2025-01-19T06:46:38.304836+00:00', 'updated_at': '2025-01-19T06:46:38.304853+00:00', 'date': '2024-01-20', 'amount': 150000, 'description': 'Lunch with colleagues', 'category_id': 5, 'bank_id': 4, 'id': 13, 'user_id': 1}, {'created_at': '2025-01-19T06:46:39.092900+00:00', 'updated_at': '2025-01-19T06:46:39.092947+00:00', 'date': '2024-01-20', 'amount': 100000, 'description': 'Transportation', 'category_id': 6, 'bank_id': 5, 'id': 14, 'user_id': 1}, {'created_at': '2025-01-19T06:39:32.324277+00:00', 'updated_at': '2025-01-19T06:39:32.324286+00:00', 'date': '2024-01-20', 'amount': 150000, 'description': 'Lunch with colleagues', 'category_id': 5, 'bank_id': 4, 'id': 5, 'user_id': 1}, {'created_at': '2025-01-19T06:39:33.106742+00:00', 'updated_at': '2025-01-19T06:39:33.106761+00:00', 'date': '2024-01-20', 'amount': 100000, 'description': 'Transportation', 'category_id': 6, 'bank_id': 5, 'id': 6, 'user_id': 1}, {'created_at': '2025-01-19T06:39:30.755577+00:00', 'updated_at': '2025-01-19T06:39:30.755592+00:00', 'date': '2024-01-19', 'amount': 500000, 'description': 'Internet Bill', 'category_id': 3, 'bank_id': 1, 'id': 3, 'user_id': 1}, {'created_at': '2025-01-19T06:39:31.544599+00:00', 'updated_at': '2025-01-19T06:39:31.544606+00:00', 'date': '2024-01-19', 'amount': 300000, 'description': 'Electricity Bill', 'category_id': 4, 'bank_id': 2, 'id': 4, 'user_id': 1}, {'created_at': '2025-01-19T06:46:36.743193+00:00', 'updated_at': '2025-01-19T06:46:36.743201+00:00', 'date': '2024-01-19', 'amount': 500000, 'description': 'Internet Bill', 'category_id': 3, 'bank_id': 1, 'id': 11, 'user_id': 1}, {'created_at': '2025-01-19T06:46:37.523777+00:00', 'updated_at': '2025-01-19T06:46:37.523787+00:00', 'date': '2024-01-19', 'amount': 300000, 'description': 'Electricity Bill', 'category_id': 4, 'bank_id': 2, 'id': 12, 'user_id': 1}, {'created_at': '2025-01-19T06:46:35.167328+00:00', 'updated_at': '2025-01-19T06:46:35.167343+00:00', 'date': '2024-01-18', 'amount': 5000000, 'description': 'Monthly Salary', 'category_id': 1, 'bank_id': 1, 'id': 9, 'user_id': 1}, {'created_at': '2025-01-19T06:39:29.963512+00:00', 'updated_at': '2025-01-19T06:39:29.963536+00:00', 'date': '2024-01-18', 'amount': 2000000, 'description': 'Freelance Project', 'category_id': 2, 'bank_id': 2, 'id': 2, 'user_id': 1}, {'created_at': '2025-01-19T06:39:29.176306+00:00', 'updated_at': '2025-01-19T06:39:29.176317+00:00', 'date': '2024-01-18', 'amount': 5000000, 'description': 'Monthly Salary', 'category_id': 1, 'bank_id': 1, 'id': 1, 'user_id': 1}, {'created_at': '2025-01-19T06:46:35.953636+00:00', 'updated_at': '2025-01-19T06:46:35.953669+00:00', 'date': '2024-01-18', 'amount': 2000000, 'description': 'Freelance Project', 'category_id': 2, 'bank_id': 2, 'id': 10, 'user_id': 1}]
+2025-01-19 06:46:42,205 - INFO - --------------------------------------------------
+2025-01-19 06:46:42,205 - INFO - Found 16 transactions with filter: {'start_date': '2024-01-01'}
+2025-01-19 06:46:42,828 - INFO - 
+Testing: Filter Transactions with params: {'end_date': '2024-12-31'}
+2025-01-19 06:46:42,828 - INFO - Status Code: 200
+2025-01-19 06:46:42,828 - INFO - Response: [{'created_at': '2025-01-19T06:46:40.658650+00:00', 'updated_at': '2025-01-19T06:46:40.658660+00:00', 'date': '2024-01-21', 'amount': 750000, 'description': 'Shopping at Mall', 'category_id': 8, 'bank_id': 3, 'id': 16, 'user_id': 1}, {'created_at': '2025-01-19T06:46:39.880026+00:00', 'updated_at': '2025-01-19T06:46:41.919552+00:00', 'date': '2024-01-21', 'amount': 75000, 'description': 'Updated Transaction Description', 'category_id': 7, 'bank_id': 1, 'id': 15, 'user_id': 1}, {'created_at': '2025-01-19T06:39:34.687735+00:00', 'updated_at': '2025-01-19T06:39:34.687743+00:00', 'date': '2024-01-21', 'amount': 750000, 'description': 'Shopping at Mall', 'category_id': 8, 'bank_id': 3, 'id': 8, 'user_id': 1}, {'created_at': '2025-01-19T06:39:33.905037+00:00', 'updated_at': '2025-01-19T06:39:35.939297+00:00', 'date': '2024-01-21', 'amount': 75000, 'description': 'Updated Transaction Description', 'category_id': 7, 'bank_id': 1, 'id': 7, 'user_id': 1}, {'created_at': '2025-01-19T06:46:38.304836+00:00', 'updated_at': '2025-01-19T06:46:38.304853+00:00', 'date': '2024-01-20', 'amount': 150000, 'description': 'Lunch with colleagues', 'category_id': 5, 'bank_id': 4, 'id': 13, 'user_id': 1}, {'created_at': '2025-01-19T06:46:39.092900+00:00', 'updated_at': '2025-01-19T06:46:39.092947+00:00', 'date': '2024-01-20', 'amount': 100000, 'description': 'Transportation', 'category_id': 6, 'bank_id': 5, 'id': 14, 'user_id': 1}, {'created_at': '2025-01-19T06:39:32.324277+00:00', 'updated_at': '2025-01-19T06:39:32.324286+00:00', 'date': '2024-01-20', 'amount': 150000, 'description': 'Lunch with colleagues', 'category_id': 5, 'bank_id': 4, 'id': 5, 'user_id': 1}, {'created_at': '2025-01-19T06:39:33.106742+00:00', 'updated_at': '2025-01-19T06:39:33.106761+00:00', 'date': '2024-01-20', 'amount': 100000, 'description': 'Transportation', 'category_id': 6, 'bank_id': 5, 'id': 6, 'user_id': 1}, {'created_at': '2025-01-19T06:39:30.755577+00:00', 'updated_at': '2025-01-19T06:39:30.755592+00:00', 'date': '2024-01-19', 'amount': 500000, 'description': 'Internet Bill', 'category_id': 3, 'bank_id': 1, 'id': 3, 'user_id': 1}, {'created_at': '2025-01-19T06:39:31.544599+00:00', 'updated_at': '2025-01-19T06:39:31.544606+00:00', 'date': '2024-01-19', 'amount': 300000, 'description': 'Electricity Bill', 'category_id': 4, 'bank_id': 2, 'id': 4, 'user_id': 1}, {'created_at': '2025-01-19T06:46:36.743193+00:00', 'updated_at': '2025-01-19T06:46:36.743201+00:00', 'date': '2024-01-19', 'amount': 500000, 'description': 'Internet Bill', 'category_id': 3, 'bank_id': 1, 'id': 11, 'user_id': 1}, {'created_at': '2025-01-19T06:46:37.523777+00:00', 'updated_at': '2025-01-19T06:46:37.523787+00:00', 'date': '2024-01-19', 'amount': 300000, 'description': 'Electricity Bill', 'category_id': 4, 'bank_id': 2, 'id': 12, 'user_id': 1}, {'created_at': '2025-01-19T06:46:35.167328+00:00', 'updated_at': '2025-01-19T06:46:35.167343+00:00', 'date': '2024-01-18', 'amount': 5000000, 'description': 'Monthly Salary', 'category_id': 1, 'bank_id': 1, 'id': 9, 'user_id': 1}, {'created_at': '2025-01-19T06:39:29.963512+00:00', 'updated_at': '2025-01-19T06:39:29.963536+00:00', 'date': '2024-01-18', 'amount': 2000000, 'description': 'Freelance Project', 'category_id': 2, 'bank_id': 2, 'id': 2, 'user_id': 1}, {'created_at': '2025-01-19T06:39:29.176306+00:00', 'updated_at': '2025-01-19T06:39:29.176317+00:00', 'date': '2024-01-18', 'amount': 5000000, 'description': 'Monthly Salary', 'category_id': 1, 'bank_id': 1, 'id': 1, 'user_id': 1}, {'created_at': '2025-01-19T06:46:35.953636+00:00', 'updated_at': '2025-01-19T06:46:35.953669+00:00', 'date': '2024-01-18', 'amount': 2000000, 'description': 'Freelance Project', 'category_id': 2, 'bank_id': 2, 'id': 10, 'user_id': 1}]
+2025-01-19 06:46:42,829 - INFO - --------------------------------------------------
+2025-01-19 06:46:42,829 - INFO - Found 16 transactions with filter: {'end_date': '2024-12-31'}
+2025-01-19 06:46:43,448 - INFO - 
+Testing: Filter Transactions with params: {'category_id': '1'}
+2025-01-19 06:46:43,449 - INFO - Status Code: 200
+2025-01-19 06:46:43,449 - INFO - Response: [{'created_at': '2025-01-19T06:39:29.176306+00:00', 'updated_at': '2025-01-19T06:39:29.176317+00:00', 'date': '2024-01-18', 'amount': 5000000, 'description': 'Monthly Salary', 'category_id': 1, 'bank_id': 1, 'id': 1, 'user_id': 1}, {'created_at': '2025-01-19T06:46:35.167328+00:00', 'updated_at': '2025-01-19T06:46:35.167343+00:00', 'date': '2024-01-18', 'amount': 5000000, 'description': 'Monthly Salary', 'category_id': 1, 'bank_id': 1, 'id': 9, 'user_id': 1}]
+2025-01-19 06:46:43,449 - INFO - --------------------------------------------------
+2025-01-19 06:46:43,449 - INFO - Found 2 transactions with filter: {'category_id': '1'}
+2025-01-19 06:46:44,067 - INFO - 
+Testing: Filter Transactions with params: {'bank_id': '1'}
+2025-01-19 06:46:44,067 - INFO - Status Code: 200
+2025-01-19 06:46:44,067 - INFO - Response: [{'created_at': '2025-01-19T06:39:33.905037+00:00', 'updated_at': '2025-01-19T06:39:35.939297+00:00', 'date': '2024-01-21', 'amount': 75000, 'description': 'Updated Transaction Description', 'category_id': 7, 'bank_id': 1, 'id': 7, 'user_id': 1}, {'created_at': '2025-01-19T06:46:39.880026+00:00', 'updated_at': '2025-01-19T06:46:41.919552+00:00', 'date': '2024-01-21', 'amount': 75000, 'description': 'Updated Transaction Description', 'category_id': 7, 'bank_id': 1, 'id': 15, 'user_id': 1}, {'created_at': '2025-01-19T06:39:30.755577+00:00', 'updated_at': '2025-01-19T06:39:30.755592+00:00', 'date': '2024-01-19', 'amount': 500000, 'description': 'Internet Bill', 'category_id': 3, 'bank_id': 1, 'id': 3, 'user_id': 1}, {'created_at': '2025-01-19T06:46:36.743193+00:00', 'updated_at': '2025-01-19T06:46:36.743201+00:00', 'date': '2024-01-19', 'amount': 500000, 'description': 'Internet Bill', 'category_id': 3, 'bank_id': 1, 'id': 11, 'user_id': 1}, {'created_at': '2025-01-19T06:39:29.176306+00:00', 'updated_at': '2025-01-19T06:39:29.176317+00:00', 'date': '2024-01-18', 'amount': 5000000, 'description': 'Monthly Salary', 'category_id': 1, 'bank_id': 1, 'id': 1, 'user_id': 1}, {'created_at': '2025-01-19T06:46:35.167328+00:00', 'updated_at': '2025-01-19T06:46:35.167343+00:00', 'date': '2024-01-18', 'amount': 5000000, 'description': 'Monthly Salary', 'category_id': 1, 'bank_id': 1, 'id': 9, 'user_id': 1}]
+2025-01-19 06:46:44,067 - INFO - --------------------------------------------------
+2025-01-19 06:46:44,067 - INFO - Found 6 transactions with filter: {'bank_id': '1'}
+2025-01-19 06:46:44,694 - INFO - 
+Testing: Filter Transactions with params: {'start_date': '2024-01-01', 'end_date': '2024-12-31'}
+2025-01-19 06:46:44,694 - INFO - Status Code: 200
+2025-01-19 06:46:44,695 - INFO - Response: [{'created_at': '2025-01-19T06:46:40.658650+00:00', 'updated_at': '2025-01-19T06:46:40.658660+00:00', 'date': '2024-01-21', 'amount': 750000, 'description': 'Shopping at Mall', 'category_id': 8, 'bank_id': 3, 'id': 16, 'user_id': 1}, {'created_at': '2025-01-19T06:46:39.880026+00:00', 'updated_at': '2025-01-19T06:46:41.919552+00:00', 'date': '2024-01-21', 'amount': 75000, 'description': 'Updated Transaction Description', 'category_id': 7, 'bank_id': 1, 'id': 15, 'user_id': 1}, {'created_at': '2025-01-19T06:39:34.687735+00:00', 'updated_at': '2025-01-19T06:39:34.687743+00:00', 'date': '2024-01-21', 'amount': 750000, 'description': 'Shopping at Mall', 'category_id': 8, 'bank_id': 3, 'id': 8, 'user_id': 1}, {'created_at': '2025-01-19T06:39:33.905037+00:00', 'updated_at': '2025-01-19T06:39:35.939297+00:00', 'date': '2024-01-21', 'amount': 75000, 'description': 'Updated Transaction Description', 'category_id': 7, 'bank_id': 1, 'id': 7, 'user_id': 1}, {'created_at': '2025-01-19T06:46:38.304836+00:00', 'updated_at': '2025-01-19T06:46:38.304853+00:00', 'date': '2024-01-20', 'amount': 150000, 'description': 'Lunch with colleagues', 'category_id': 5, 'bank_id': 4, 'id': 13, 'user_id': 1}, {'created_at': '2025-01-19T06:46:39.092900+00:00', 'updated_at': '2025-01-19T06:46:39.092947+00:00', 'date': '2024-01-20', 'amount': 100000, 'description': 'Transportation', 'category_id': 6, 'bank_id': 5, 'id': 14, 'user_id': 1}, {'created_at': '2025-01-19T06:39:32.324277+00:00', 'updated_at': '2025-01-19T06:39:32.324286+00:00', 'date': '2024-01-20', 'amount': 150000, 'description': 'Lunch with colleagues', 'category_id': 5, 'bank_id': 4, 'id': 5, 'user_id': 1}, {'created_at': '2025-01-19T06:39:33.106742+00:00', 'updated_at': '2025-01-19T06:39:33.106761+00:00', 'date': '2024-01-20', 'amount': 100000, 'description': 'Transportation', 'category_id': 6, 'bank_id': 5, 'id': 6, 'user_id': 1}, {'created_at': '2025-01-19T06:39:30.755577+00:00', 'updated_at': '2025-01-19T06:39:30.755592+00:00', 'date': '2024-01-19', 'amount': 500000, 'description': 'Internet Bill', 'category_id': 3, 'bank_id': 1, 'id': 3, 'user_id': 1}, {'created_at': '2025-01-19T06:39:31.544599+00:00', 'updated_at': '2025-01-19T06:39:31.544606+00:00', 'date': '2024-01-19', 'amount': 300000, 'description': 'Electricity Bill', 'category_id': 4, 'bank_id': 2, 'id': 4, 'user_id': 1}, {'created_at': '2025-01-19T06:46:36.743193+00:00', 'updated_at': '2025-01-19T06:46:36.743201+00:00', 'date': '2024-01-19', 'amount': 500000, 'description': 'Internet Bill', 'category_id': 3, 'bank_id': 1, 'id': 11, 'user_id': 1}, {'created_at': '2025-01-19T06:46:37.523777+00:00', 'updated_at': '2025-01-19T06:46:37.523787+00:00', 'date': '2024-01-19', 'amount': 300000, 'description': 'Electricity Bill', 'category_id': 4, 'bank_id': 2, 'id': 12, 'user_id': 1}, {'created_at': '2025-01-19T06:46:35.167328+00:00', 'updated_at': '2025-01-19T06:46:35.167343+00:00', 'date': '2024-01-18', 'amount': 5000000, 'description': 'Monthly Salary', 'category_id': 1, 'bank_id': 1, 'id': 9, 'user_id': 1}, {'created_at': '2025-01-19T06:39:29.963512+00:00', 'updated_at': '2025-01-19T06:39:29.963536+00:00', 'date': '2024-01-18', 'amount': 2000000, 'description': 'Freelance Project', 'category_id': 2, 'bank_id': 2, 'id': 2, 'user_id': 1}, {'created_at': '2025-01-19T06:39:29.176306+00:00', 'updated_at': '2025-01-19T06:39:29.176317+00:00', 'date': '2024-01-18', 'amount': 5000000, 'description': 'Monthly Salary', 'category_id': 1, 'bank_id': 1, 'id': 1, 'user_id': 1}, {'created_at': '2025-01-19T06:46:35.953636+00:00', 'updated_at': '2025-01-19T06:46:35.953669+00:00', 'date': '2024-01-18', 'amount': 2000000, 'description': 'Freelance Project', 'category_id': 2, 'bank_id': 2, 'id': 10, 'user_id': 1}]
+2025-01-19 06:46:44,695 - INFO - --------------------------------------------------
+2025-01-19 06:46:44,695 - INFO - Found 16 transactions with filter: {'start_date': '2024-01-01', 'end_date': '2024-12-31'}
+2025-01-19 06:46:45,200 - INFO - ✅ Successfully tested transaction filters
+2025-01-19 06:46:45,200 - INFO - Filter: {'start_date': '2024-01-01'} -> Found: 16 transactions
+2025-01-19 06:46:45,200 - INFO - Filter: {'end_date': '2024-12-31'} -> Found: 16 transactions
+2025-01-19 06:46:45,200 - INFO - Filter: {'category_id': '1'} -> Found: 2 transactions
+2025-01-19 06:46:45,200 - INFO - Filter: {'bank_id': '1'} -> Found: 6 transactions
+2025-01-19 06:46:45,200 - INFO - Filter: {'start_date': '2024-01-01', 'end_date': '2024-12-31'} -> Found: 16 transactions
+2025-01-19 06:46:45,200 - INFO - ✅ Transaction tests passed!
+2025-01-19 06:46:45,200 - INFO - 
+=== Test Summary ===
+2025-01-19 06:46:45,201 - INFO - Started at: 2025-01-19 06:46:19
+2025-01-19 06:46:45,201 - INFO - Ended at: 2025-01-19 06:46:45
+2025-01-19 06:46:45,201 - INFO - Duration: 26.09 seconds
+2025-01-19 06:46:45,201 - INFO - ✨ All tests completed!
+2025-01-19 06:46:45,201 - INFO - 
+Test session completed in 26.09 seconds

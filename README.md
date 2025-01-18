@@ -26,13 +26,26 @@ FLOO is a modern financial tracking application that helps users manage their pe
 
 ```
 floo/
-├── backend/          # FastAPI Backend
-│   ├── app/
-│   │   ├── api/     # API endpoints
-│   │   ├── core/    # Core configurations
-│   │   ├── db/      # Database configurations
-│   │   └── models/  # SQLModel models
-│   └── requirements.txt
+├── backend/
+    ├── app/
+    │   ├── __init__.py
+    │   ├── api/
+    │   ├── core/
+    │   ├── db/
+    │   └── models/
+    ├── tests/
+    │   ├── __init__.py
+    │   ├── logs/
+    │   │   └── test_run_xxxxx
+    │   ├── test_endpoints.py
+    │   └── test_data.json
+    ├── run_tests.py
+    ├── venv
+    ├── .env
+    ├── requirements.txt
+    ├── init_db.py
+    ├── run_test.py
+    └── main.py
 │
 └── frontend/         # Next.js Frontend (Coming Soon)
 ```
@@ -137,6 +150,26 @@ ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
+### 🎢 Testing
+
+Run API endpoint tests:
+
+```bash
+# Run all tests
+python tests/test_endpoints.py --all
+
+# Run specific tests
+python tests/test_endpoints.py --auth    # Authentication tests only
+python tests/test_endpoints.py --bank    # Bank tests only
+python tests/test_endpoints.py --category # Category tests only
+python tests/test_endpoints.py --transaction # Transaction tests only
+
+#To save the log in md file, you can use
+python tests/test_endpoints.py --all --format md
+#or if you want in txt file, you can use
+python tests/test_endpoints.py --all --format txt
+
+
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -165,3 +198,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <div align="center">
   Made with ❤️ by [Your Name]
 </div>
+```

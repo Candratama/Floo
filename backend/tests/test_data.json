@@ -1,0 +1,187 @@
+{
+    "user": {
+      "register_multiple": [
+        {
+          "fullname": "John Doe",
+          "username": "johndoe",
+          "email": "john@example.com",
+          "password": "password123"
+        },
+        {
+          "fullname": "Jane Smith",
+          "username": "janesmith",
+          "email": "jane@example.com",
+          "password": "password123"
+        },
+        {
+          "fullname": "Bob Wilson",
+          "username": "bobwilson",
+          "email": "bob@example.com",
+          "password": "password123"
+        }
+      ],
+      "login": {
+        "username": "johndoe",
+        "password": "password123"
+      }
+    },
+    "bank": {
+      "create_multiple": [
+        {
+          "name": "BCA",
+          "color": "#0066AE",
+          "start_balance": 5000000
+        },
+        {
+          "name": "Mandiri",
+          "color": "#003D79",
+          "start_balance": 3000000
+        },
+        {
+          "name": "BNI",
+          "color": "#F15A23",
+          "start_balance": 2000000
+        },
+        {
+          "name": "DANA",
+          "color": "#00AED6",
+          "start_balance": 500000
+        },
+        {
+          "name": "GoPay",
+          "color": "#00880C",
+          "start_balance": 300000
+        }
+      ],
+      "update": {
+        "name": "Updated Bank",
+        "color": "#00FF00"
+      }
+    },
+    "category": {
+      "create_expense": [
+        {
+          "name": "Internet",
+          "is_income": false
+        },
+        {
+          "name": "Electricity",
+          "is_income": false
+        },
+        {
+          "name": "Transportation",
+          "is_income": false
+        },
+        {
+          "name": "Food & Beverage",
+          "is_income": false
+        },
+        {
+          "name": "Shopping",
+          "is_income": false
+        },
+        {
+          "name": "Entertainment",
+          "is_income": false
+        },
+        {
+          "name": "Health",
+          "is_income": false
+        },
+        {
+          "name": "Education",
+          "is_income": false
+        }
+      ],
+      "create_income": [
+        {
+          "name": "Salary",
+          "is_income": true
+        },
+        {
+          "name": "Freelance",
+          "is_income": true
+        },
+        {
+          "name": "Investment",
+          "is_income": true
+        },
+        {
+          "name": "Business",
+          "is_income": true
+        },
+        {
+          "name": "Dividend",
+          "is_income": true
+        }
+      ],
+      "update": {
+        "name": "Updated Category",
+        "is_income": true
+      }
+    },
+    "transaction": {
+      "create_multiple": [
+        {
+          "date": "2024-01-18",
+          "amount": 5000000,
+          "description": "Monthly Salary",
+          "category_id": 1,  
+          "bank_id": 1      
+        },
+        {
+          "date": "2024-01-18",
+          "amount": 2000000,
+          "description": "Freelance Project",
+          "category_id": 2,  
+          "bank_id": 2      
+        },
+        {
+          "date": "2024-01-19",
+          "amount": 500000,
+          "description": "Internet Bill",
+          "category_id": 3,  
+          "bank_id": 1      
+        },
+        {
+          "date": "2024-01-19",
+          "amount": 300000,
+          "description": "Electricity Bill",
+          "category_id": 4,  
+          "bank_id": 2      
+        },
+        {
+          "date": "2024-01-20",
+          "amount": 150000,
+          "description": "Lunch with colleagues",
+          "category_id": 5,  
+          "bank_id": 4      
+        },
+        {
+          "date": "2024-01-20",
+          "amount": 100000,
+          "description": "Transportation",
+          "category_id": 6,  
+          "bank_id": 5      
+        },
+        {
+          "date": "2024-01-21",
+          "amount": 1000000,
+          "description": "Investment Return",
+          "category_id": 7,  
+          "bank_id": 1      
+        },
+        {
+          "date": "2024-01-21",
+          "amount": 750000,
+          "description": "Shopping at Mall",
+          "category_id": 8,  
+          "bank_id": 3      
+        }
+      ],
+      "update": {
+        "amount": 75000,
+        "description": "Updated Transaction Description"
+      }
+    }
+  }
