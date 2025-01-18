@@ -27,25 +27,25 @@ FLOO is a modern financial tracking application that helps users manage their pe
 ```
 floo/
 ├── backend/
-    ├── app/
-    │   ├── __init__.py
-    │   ├── api/
-    │   ├── core/
-    │   ├── db/
-    │   └── models/
-    ├── tests/
-    │   ├── __init__.py
-    │   ├── logs/
-    │   │   └── test_run_xxxxx
-    │   ├── test_endpoints.py
-    │   └── test_data.json
-    ├── run_tests.py
-    ├── venv
-    ├── .env
-    ├── requirements.txt
-    ├── init_db.py
-    ├── run_test.py
-    └── main.py
+│   ├── app/
+│   │   ├── __init__.py
+│   │   ├── api/
+│   │   ├── core/
+│   │   ├── db/
+│   │   └── models/
+│   ├── tests/
+│   │   ├── __init__.py
+│   │   ├── logs/
+│   │   │   └── test_run_xxxxx
+│   │   ├── test_endpoints.py
+│   │   └── test_data.json
+│   ├── run_tests.py
+│   ├── venv
+│   ├── .env
+│   ├── requirements.txt
+│   ├── init_db.py
+│   ├── run_test.py
+│   └── main.py
 │
 └── frontend/         # Next.js Frontend (Coming Soon)
 ```
