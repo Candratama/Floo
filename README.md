@@ -1,7 +1,7 @@
 # FLOO - Financial Logger/Organizer Online
 
 <div align="center">
-  <img src="path_to_your_logo.png" alt="FLOO Logo" width="200"/>
+  <img src="./floo-logo.jpeg" alt="FLOO Logo" width="200"/>
   
   ![Python](https://img.shields.io/badge/python-3.12-blue.svg)
   ![FastAPI](https://img.shields.io/badge/FastAPI-0.103.0-green.svg)
