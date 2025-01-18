@@ -184,7 +184,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- Your Name - Initial work - [YourGithub](https://github.com/yourusername)
+- Wahyu Candra Tama - Initial work - [YourGithub](https://github.com/Candratama)
 
 ## 🙏 Acknowledgments
 
@@ -196,6 +196,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 <div align="center">
-  Made with ❤️ by [Your Name]
+  Made with ❤️ by [Candratama]
 </div>
 ```
