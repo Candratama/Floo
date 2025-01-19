@@ -185,6 +185,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👥 Authors
 
 - Wahyu Candra Tama - Initial work - [My Github](https://github.com/Candratama)
+- Mostly supported by Claude.AI 3.5 Sonnet - [Claude AI](https://claude.ai)
 
 ## 🙏 Acknowledgments
 
