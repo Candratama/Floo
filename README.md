@@ -168,7 +168,7 @@ python tests/test_endpoints.py --transaction # Transaction tests only
 python tests/test_endpoints.py --all --format md
 #or if you want in txt file, you can use
 python tests/test_endpoints.py --all --format txt
-
+```
 
 ## 🤝 Contributing
 
@@ -184,7 +184,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- Wahyu Candra Tama - Initial work - [YourGithub](https://github.com/Candratama)
+- Wahyu Candra Tama - Initial work - [My Github](https://github.com/Candratama)
 
 ## 🙏 Acknowledgments
 
@@ -198,4 +198,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <div align="center">
   Made with ❤️ by [Candratama]
 </div>
-```
