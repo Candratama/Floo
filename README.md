@@ -25,29 +25,51 @@ FLOO is a modern financial tracking application that helps users manage their pe
 ## 🏗️ Project Structure
 
 ```
-floo/
+Floo/
+├── README.md
 ├── backend/
+│   ├── init_db.py
+│   ├── main.py
+│   ├── requirements.txt
+│   ├── run_tests.py
 │   ├── app/
 │   │   ├── __init__.py
 │   │   ├── api/
+│   │   │   ├── __init__.py
+│   │   │   ├── deps.py
+│   │   │   └── v1/
+│   │   │       ├── __init__.py
+│   │   │       ├── auth.py
+│   │   │       ├── banks.py
+│   │   │       ├── categories.py
+│   │   │       ├── transactions.py
+│   │   │       └── users.py
 │   │   ├── core/
+│   │   │   ├── __init__.py
+│   │   │   ├── config.py
+│   │   │   ├── security.py
+│   │   │   └── utils.py
 │   │   ├── db/
-│   │   └── models/
-│   ├── tests/
-│   │   ├── __init__.py
-│   │   ├── logs/
-│   │   │   └── test_run_xxxxx
-│   │   ├── test_endpoints.py
-│   │   └── test_data.json
-│   ├── run_tests.py
-│   ├── venv
-│   ├── .env
-│   ├── requirements.txt
-│   ├── init_db.py
-│   ├── run_test.py
-│   └── main.py
-│
-└── frontend/         # Next.js Frontend (Coming Soon)
+│   │   │   ├── __init__.py
+│   │   │   └── session.py
+│   │   ├── models/
+│   │   │   ├── __init__.py
+│   │   │   ├── bank.py
+│   │   │   ├── base.py
+│   │   │   ├── category.py
+│   │   │   ├── transaction.py
+│   │   │   └── user.py
+│   │   └── schemas/
+│   │       └── base.py
+│   └── tests/
+│       ├── __init__.py
+│       ├── test_data.json
+│       ├── test_endpoints.py
+│       └── logs/
+│           ├── test_run_20250119_063910.md
+│           └── test_run_20250119_064619.txt
+└── frontend/
+    └── # Next.js Frontend (Coming Soon)
 ```
 
 ## 🚀 Technology Stack

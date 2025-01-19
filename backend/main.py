@@ -34,13 +34,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize database on startup
-# @app.on_event("startup")
-# def on_startup():
-#     logger.info("Initializing database...")
-#     init_db()
-#     logger.info("Database initialized successfully!")
-
 # Include routers
 app.include_router(auth, prefix="/api/v1", tags=["auth"])
 app.include_router(users, prefix="/api/v1/users", tags=["users"])
