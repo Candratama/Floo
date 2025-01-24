@@ -1,223 +1,59 @@
-# FLOO - Financial Logger/Organizer Online
+# Floo Project
 
-<div align="center">
-  <img src="./banana.png" alt="FLOO Logo" width="150"/>
-  
-  ![Python](https://img.shields.io/badge/python-3.12-blue.svg)
-  ![FastAPI](https://img.shields.io/badge/FastAPI-0.103.0-green.svg)
-  ![Next.js](https://img.shields.io/badge/Next.js-14-black.svg)
-  ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-</div>
+## Recent Changes: User Data Isolation
 
-## 📊 Overview
+All data (categories, banks, and transactions) is now user-specific. Each user can only access and modify their own data.
 
-FLOO is a modern financial tracking application that helps users manage their personal finances across multiple bank accounts. Built with FastAPI for the backend and Next.js for the frontend, FLOO provides a seamless experience for tracking expenses, monitoring account balances, and managing financial categories.
+### Database Changes
 
-## 🌟 Features
+- Added `user_id` foreign key to categories and banks tables
+- Added relationships between User and all other models
+- Added database indexes for performance optimization
+- Updated API endpoints to handle user-specific data access
 
-- **Multi-Bank Support**: Track balances across different bank accounts
-- **Smart Categorization**: Organize transactions with customizable categories
-- **Balance Tracking**: Monitor start and end balances for each account
-- **Transaction Management**: Record and track both income and expenses
-- **Secure Authentication**: JWT-based authentication system
-- **Responsive Design**: Mobile-friendly interface
+### Running Database Migrations
 
-## 🏗️ Project Structure
-
-```
-Floo/
-├── README.md
-├── backend/
-│   ├── init_db.py
-│   ├── main.py
-│   ├── requirements.txt
-│   ├── run_tests.py
-│   ├── app/
-│   │   ├── __init__.py
-│   │   ├── api/
-│   │   │   ├── __init__.py
-│   │   │   ├── deps.py
-│   │   │   └── v1/
-│   │   │       ├── __init__.py
-│   │   │       ├── auth.py
-│   │   │       ├── banks.py
-│   │   │       ├── categories.py
-│   │   │       ├── transactions.py
-│   │   │       └── users.py
-│   │   ├── core/
-│   │   │   ├── __init__.py
-│   │   │   ├── config.py
-│   │   │   ├── security.py
-│   │   │   └── utils.py
-│   │   ├── db/
-│   │   │   ├── __init__.py
-│   │   │   └── session.py
-│   │   ├── models/
-│   │   │   ├── __init__.py
-│   │   │   ├── bank.py
-│   │   │   ├── base.py
-│   │   │   ├── category.py
-│   │   │   ├── transaction.py
-│   │   │   └── user.py
-│   │   └── schemas/
-│   │       └── base.py
-│   └── tests/
-│       ├── __init__.py
-│       ├── test_data.json
-│       ├── test_endpoints.py
-│       └── logs/
-│           ├── test_run_20250119_063910.md
-│           └── test_run_20250119_064619.txt
-└── frontend/
-    └── # Next.js Frontend (Coming Soon)
-```
-
-## 🚀 Technology Stack
-
-### Backend
-
-- **FastAPI**: Modern Python web framework
-- **SQLModel**: SQL database interaction
-- **PostgreSQL**: Primary database
-- **JWT**: Authentication handling
-- **Python 3.12**: Core programming language
-
-### Frontend (Coming Soon)
-
-- **Next.js 14**: React framework
-- **TypeScript**: Type-safe code
-- **Tailwind CSS**: Styling
-- **React Query**: State management
-
-## 🛠️ Setup & Installation
-
-### Backend Setup
-
-1. Clone the repository
+To apply the new changes to your database:
 
 ```bash
-git clone https://github.com/yourusername/floo.git
-cd floo/backend
+# From the backend directory
+python -c "from app.db.migrations import run_migrations; run_migrations()"
 ```
 
-2. Create virtual environment
+This will:
 
-```bash
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# or
-.\venv\Scripts\activate  # Windows
-```
+1. Add user_id columns to necessary tables
+2. Create foreign key constraints
+3. Create performance indexes
+4. Make user_id required for all tables
 
-3. Install dependencies
+### Security Features
 
-```bash
-pip install -r requirements.txt
-```
+- All API endpoints now verify user ownership of data
+- Proper error handling for unauthorized access attempts
+- Database-level foreign key constraints
+- API-level authorization checks
 
-4. Setup environment variables
+### API Changes
 
-```bash
-cp .env.example .env
-# Edit .env with your configurations
-```
+All endpoints now:
 
-5. Run the application
+- Require authentication
+- Filter data by current user
+- Verify ownership before modifications
+- Include user_id in responses
 
-```bash
-uvicorn main:app --reload
-```
+Example endpoints:
 
-The API will be available at `http://localhost:8000`
+- GET /api/v1/categories - Returns only current user's categories
+- POST /api/v1/banks - Automatically associates new bank with current user
+- PATCH /api/v1/transactions/{id} - Verifies transaction ownership before update
 
-### API Documentation
+### Model Updates
 
-- Swagger UI: `http://localhost:8000/docs`
-- ReDoc: `http://localhost:8000/redoc`
+Updated models:
 
-## 📝 API Endpoints
-
-### Authentication
-
-- `POST /api/v1/register`: Register new user
-- `POST /api/v1/login`: Login user
-
-### Banks
-
-- `GET /api/v1/banks`: List all banks
-- `POST /api/v1/banks`: Create new bank
-- `PATCH /api/v1/banks/{id}`: Update bank
-- `DELETE /api/v1/banks/{id}`: Delete bank
-
-### Categories
-
-- `GET /api/v1/categories`: List all categories
-- `POST /api/v1/categories`: Create new category
-- `PATCH /api/v1/categories/{id}`: Update category
-- `DELETE /api/v1/categories/{id}`: Delete category
-
-### Transactions
-
-- `GET /api/v1/transactions`: List all transactions
-- `POST /api/v1/transactions`: Create new transaction
-- `PATCH /api/v1/transactions/{id}`: Update transaction
-- `DELETE /api/v1/transactions/{id}`: Delete transaction
-
-## 🔒 Environment Variables
-
-```env
-DATABASE_URL=postgresql://user:password@localhost:5432/floo_db
-SECRET_KEY=your-secret-key
-ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=30
-```
-
-### 🎢 Testing
-
-Run API endpoint tests:
-
-```bash
-# Run all tests
-python tests/test_endpoints.py --all
-
-# Run specific tests
-python tests/test_endpoints.py --auth    # Authentication tests only
-python tests/test_endpoints.py --bank    # Bank tests only
-python tests/test_endpoints.py --category # Category tests only
-python tests/test_endpoints.py --transaction # Transaction tests only
-
-#To save the log in md file, you can use
-python tests/test_endpoints.py --all --format md
-#or if you want in txt file, you can use
-python tests/test_endpoints.py --all --format txt
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Authors
-
-- Wahyu Candra Tama - Initial work - [My Github](https://github.com/Candratama)
-- Mostly supported by Claude.AI 3.5 Sonnet - [Claude AI](https://claude.ai)
-
-## 🙏 Acknowledgments
-
-- FastAPI Documentation
-- SQLModel Documentation
-- Next.js Documentation
-- All contributors who help improve this project
-
----
-
-<div align="center">
-  Made with ❤️ by [Candratama]
-</div>
+- Category: Added user relationship
+- Bank: Added user relationship
+- User: Added relationships to all models
+- Transaction: Already had user relationship

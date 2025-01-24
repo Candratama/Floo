@@ -19,26 +19,18 @@ async def create_category(
     current_user: User = Depends(get_current_user)
 ):
     try:
-        # Check if category with same name exists
-        existing_category = session.exec(
-            select(Category).where(Category.name == category_in.name)
-        ).first()
-        if existing_category:
-            raise HTTPException(
-                status_code=400,
-                detail="Category with this name already exists"
-            )
-
-        db_category = Category(**category_in.dict())
+        # Create category with current user's ID
+        db_category = Category(
+            **category_in.dict(),
+            user_id=current_user.id
+        )
         
         session.add(db_category)
         session.commit()
         session.refresh(db_category)
         
-        logger.info(f"Category created successfully: {category_in.name}")
+        logger.info(f"Category created successfully: {db_category.id}")
         return db_category
-    except HTTPException:
-        raise
     except Exception as e:
         logger.error(f"Error creating category: {e}")
         raise HTTPException(
@@ -55,11 +47,10 @@ async def get_categories(
     limit: int = 100
 ):
     try:
-        categories = session.exec(
-            select(Category)
-            .offset(skip)
-            .limit(limit)
-        ).all()
+        # Filter categories by current user
+        query = select(Category).where(Category.user_id == current_user.id)
+        query = query.offset(skip).limit(limit)
+        categories = session.exec(query).all()
         return categories
     except Exception as e:
         logger.error(f"Error retrieving categories: {e}")
@@ -79,6 +70,11 @@ async def get_category(
         category = session.get(Category, category_id)
         if not category:
             raise HTTPException(status_code=404, detail="Category not found")
+        
+        # Verify category belongs to current user
+        if category.user_id != current_user.id:
+            raise HTTPException(status_code=403, detail="Not authorized to access this category")
+            
         return category
     except HTTPException:
         raise
@@ -101,21 +97,13 @@ async def update_category(
         category = session.get(Category, category_id)
         if not category:
             raise HTTPException(status_code=404, detail="Category not found")
+            
+        # Verify category belongs to current user
+        if category.user_id != current_user.id:
+            raise HTTPException(status_code=403, detail="Not authorized to modify this category")
 
+        # Update category fields
         update_data = category_update.dict(exclude_unset=True)
-
-        if "name" in update_data:
-            existing_category = session.exec(
-                select(Category)
-                .where(Category.name == update_data["name"])
-                .where(Category.id != category_id)
-            ).first()
-            if existing_category:
-                raise HTTPException(
-                    status_code=400,
-                    detail="Category with this name already exists"
-                )
-
         for field, value in update_data.items():
             setattr(category, field, value)
 
@@ -125,7 +113,7 @@ async def update_category(
         session.commit()
         session.refresh(category)
         
-        logger.info(f"Category updated successfully: {category.name}")
+        logger.info(f"Category updated successfully: {category.id}")
         return category
     except HTTPException:
         raise
@@ -147,11 +135,15 @@ async def delete_category(
         category = session.get(Category, category_id)
         if not category:
             raise HTTPException(status_code=404, detail="Category not found")
+            
+        # Verify category belongs to current user
+        if category.user_id != current_user.id:
+            raise HTTPException(status_code=403, detail="Not authorized to delete this category")
 
         session.delete(category)
         session.commit()
         
-        logger.info(f"Category deleted successfully: {category.name}")
+        logger.info(f"Category deleted successfully: {category_id}")
         return {"message": "Category deleted successfully"}
     except HTTPException:
         raise

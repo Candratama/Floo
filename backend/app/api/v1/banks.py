@@ -19,37 +19,23 @@ async def create_bank(
     current_user: User = Depends(get_current_user)
 ):
     try:
-        # Check if bank with same name exists
-        existing_bank = session.exec(
-            select(Bank).where(Bank.name == bank_in.name)
-        ).first()
-        if existing_bank:
-            raise HTTPException(
-                status_code=400,
-                detail="Bank with this name already exists"
-            )
-
-        # Create bank with end_balance equal to start_balance
+        # Create bank with current user's ID
         db_bank = Bank(
-            name=bank_in.name,
-            color=bank_in.color,
-            start_balance=bank_in.start_balance,
-            end_balance=bank_in.start_balance  # Set end_balance sama dengan start_balance
+            **bank_in.dict(),
+            user_id=current_user.id
         )
         
         session.add(db_bank)
         session.commit()
         session.refresh(db_bank)
         
-        logger.info(f"Bank account created successfully: {bank_in.name}")
+        logger.info(f"Bank created successfully: {db_bank.id}")
         return db_bank
-    except HTTPException:
-        raise
     except Exception as e:
-        logger.error(f"Error creating bank account: {e}")
+        logger.error(f"Error creating bank: {e}")
         raise HTTPException(
             status_code=500,
-            detail=f"Error creating bank account: {str(e)}"
+            detail=f"Error creating bank: {str(e)}"
         )
 
 @router.get("/", response_model=List[BankRead])
@@ -61,11 +47,10 @@ async def get_banks(
     limit: int = 100
 ):
     try:
-        banks = session.exec(
-            select(Bank)
-            .offset(skip)
-            .limit(limit)
-        ).all()
+        # Filter banks by current user
+        query = select(Bank).where(Bank.user_id == current_user.id)
+        query = query.offset(skip).limit(limit)
+        banks = session.exec(query).all()
         return banks
     except Exception as e:
         logger.error(f"Error retrieving banks: {e}")
@@ -85,6 +70,11 @@ async def get_bank(
         bank = session.get(Bank, bank_id)
         if not bank:
             raise HTTPException(status_code=404, detail="Bank not found")
+        
+        # Verify bank belongs to current user
+        if bank.user_id != current_user.id:
+            raise HTTPException(status_code=403, detail="Not authorized to access this bank")
+            
         return bank
     except HTTPException:
         raise
@@ -107,21 +97,13 @@ async def update_bank(
         bank = session.get(Bank, bank_id)
         if not bank:
             raise HTTPException(status_code=404, detail="Bank not found")
+            
+        # Verify bank belongs to current user
+        if bank.user_id != current_user.id:
+            raise HTTPException(status_code=403, detail="Not authorized to modify this bank")
 
+        # Update bank fields
         update_data = bank_update.dict(exclude_unset=True)
-
-        if "name" in update_data:
-            existing_bank = session.exec(
-                select(Bank)
-                .where(Bank.name == update_data["name"])
-                .where(Bank.id != bank_id)
-            ).first()
-            if existing_bank:
-                raise HTTPException(
-                    status_code=400,
-                    detail="Bank with this name already exists"
-                )
-
         for field, value in update_data.items():
             setattr(bank, field, value)
 
@@ -131,7 +113,7 @@ async def update_bank(
         session.commit()
         session.refresh(bank)
         
-        logger.info(f"Bank account updated successfully: {bank.name}")
+        logger.info(f"Bank updated successfully: {bank.id}")
         return bank
     except HTTPException:
         raise
@@ -153,11 +135,15 @@ async def delete_bank(
         bank = session.get(Bank, bank_id)
         if not bank:
             raise HTTPException(status_code=404, detail="Bank not found")
+            
+        # Verify bank belongs to current user
+        if bank.user_id != current_user.id:
+            raise HTTPException(status_code=403, detail="Not authorized to delete this bank")
 
         session.delete(bank)
         session.commit()
         
-        logger.info(f"Bank account deleted successfully: {bank.name}")
+        logger.info(f"Bank deleted successfully: {bank_id}")
         return {"message": "Bank deleted successfully"}
     except HTTPException:
         raise
