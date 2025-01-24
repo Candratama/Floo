@@ -2,12 +2,13 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { User, AuthResponse } from "@/types/auth";
+import { User, AuthResponse, RegisterCredentials } from "@/types/auth";
 import axios from "axios";
 
 interface AuthContextType {
   user: User | null;
   login: (username: string, password: string) => Promise<void>;
+  register: (credentials: RegisterCredentials) => Promise<void>;
   logout: () => void;
   isLoading: boolean;
 }
@@ -35,6 +36,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
     setIsLoading(false);
   }, []);
+
+  const register = async (credentials: RegisterCredentials) => {
+    try {
+      setIsLoading(true);
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/register`,
+        credentials
+      );
+      // Don't automatically log in after registration
+      // Instead, redirect to login page
+      router.push("/login");
+    } catch (error) {
+      console.error("Registration error:", error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const login = async (username: string, password: string) => {
     try {
@@ -78,7 +97,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isLoading }}>
+    <AuthContext.Provider value={{ user, login, register, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );
